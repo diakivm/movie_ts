@@ -1,0 +1,19 @@
+
+.select-section {
+
+   &__type-media {
+   }
+}
+
+.type-media {
+
+   &__items {
+      padding: 10px 0px 0px 0px;
+   }
+
+   &__item {
+      &:not(:last-child) {
+         margin: 0px 10px 10px 0px;
+      }
+   }
+}

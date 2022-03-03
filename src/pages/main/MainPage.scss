@@ -1,0 +1,11 @@
+.main-slider {
+
+   &__title {
+      color: #ffffff;
+      font-size: 32px;
+      font-weight: 600;
+      &:first-child{
+         margin: 20px 0px 0px 0px;
+      }
+   }
+}

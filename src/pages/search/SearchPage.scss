@@ -1,0 +1,24 @@
+.search-page {
+
+   &__items {
+   }
+
+   &__name-section {
+      color: #ffffff;
+      font-size: 26px;
+      font-weight: 500;
+      margin: 20px 0;
+   }
+
+   &__title {
+      color: #ffffff;
+      font-size: 32px;
+      font-weight: 600;
+      margin: 20px 0;
+   }
+
+   &__masegge-no-items{
+      margin: 0px 0px 0px 10px;
+      font-size: 18px;
+   }
+}

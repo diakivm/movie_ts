@@ -1,0 +1,86 @@
+.select-section {
+
+   &__filtres {
+   }
+}
+.filtres {
+
+
+   span{
+      color: #FFC107 !important;
+   }
+
+   //genres
+   &__genre-items {
+      padding: 10px 0px 0px 0px;
+
+
+
+      .accordion{
+         margin: 0px 0px 10px 0px;
+      }
+
+      .accordion-button{
+         background-color: transparent !important;
+         color: white;
+
+         &::after{
+            background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23ffffff'><path fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/></svg>") !important;
+         }
+
+         &:focus {
+            border: none !important;
+            box-shadow: none !important;
+            outline: 0 none !important;
+         }
+
+      }
+
+      .accordion-item{
+         border: transparent;
+         border-bottom: 1px solid #FFC107;
+         background-color: transparent !important;
+      }
+   }
+
+   &__genre-item {
+      &:not(:last-child) {
+         margin: 0px 10px 10px 0px;
+      }
+   } 
+   
+   //year
+
+	&__year {
+	}
+
+   &__year-value {
+      color: white;
+      font-size: 16px;
+      font-weight: 300;
+	}
+
+   //raiting
+
+   &__raiting {
+   }
+   
+   &__raiting-value {
+      color: white;
+      font-size: 16px;
+      font-weight: 300;
+   }
+
+   //vote
+
+	&__vote {
+		}
+
+	&__vote-value {
+      color: white;
+      font-size: 16px;
+      font-weight: 300;
+		}
+
+
+}
