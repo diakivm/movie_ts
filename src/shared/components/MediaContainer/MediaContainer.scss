@@ -1,0 +1,22 @@
+@import '../../../../../movie/src/styles/sass/style';
+.movie {
+
+   &__title{
+      color: #ffffff;
+      font-size: 32px;
+      font-weight: 600;
+      margin: 20px 0;
+   }
+
+   &__container{
+      display: grid;
+      gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 200px));
+      @media (max-width:$md4+px){
+         grid-template-columns: minmax(200px, 250px);
+      }
+      justify-content: center;
+      justify-items: center;
+      align-items: center;
+   }
+}

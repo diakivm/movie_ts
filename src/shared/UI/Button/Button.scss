@@ -1,0 +1,18 @@
+.button{
+   padding: 10px 20px;
+   border-radius: 30px;
+   background-color: transparent;
+   border: 1px solid #FFC107;
+   color: #FFC107;
+
+   &:hover{
+      transition: all 0.2s ease-in-out;
+      background-color: #FFC107;
+      color: #ffffff;
+   }
+}
+
+.button.active{
+   background-color: #FFC107;
+   color: #ffffff;
+}

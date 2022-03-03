@@ -1,0 +1,26 @@
+.pagination{
+   
+
+   .page-item{
+      a {
+         border: transparent;
+         color: #FFC107 !important;
+         background-color: transparent !important;
+
+         &:focus {
+            border: none !important;
+            box-shadow: none !important;
+            outline: 0 none !important;
+         }
+      }
+   }
+
+   .active{
+         span {
+         background-color: #FFC107 !important;
+         border-radius: 100px;
+         border-color: white !important;
+         }
+   }
+
+}
