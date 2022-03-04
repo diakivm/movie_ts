@@ -1,9 +1,7 @@
 import React, {FC} from 'react'
 import './MediaContainer.scss'
-import {IMovie} from "../../../models/IMovie";
 import MediaPreview from "../MediaPrview/MediaPreview";
 import Loaders from "../../../utils/Loaders";
-import {ITvSeries} from "../../../models/ITvSeries";
 import {IMedia} from "../../../models/IMedia";
 
 interface MediaContainerProps {
@@ -35,7 +33,7 @@ const MediaContainer: FC<MediaContainerProps> = ({ items, isItemsLoading = false
                                                        return <MediaPreview key={item.id}
                                                                             item={item}/>
                                                     })
-                              )
+                                 )
                               
             }
          </div>

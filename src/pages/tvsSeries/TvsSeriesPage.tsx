@@ -10,12 +10,12 @@ import MediaContainer from "../../shared/components/MediaContainer/MediaContaine
 
 export default function TvsSeriesPage() {
 
-    const {fetchPopularMedia, fetchTrendingMedia} = useAction()
+    const {fetchPopularMedia, fetchTrendingMediaSlider} = useAction()
     const {media, isLoading} = useTypeSelector(i => i.media)
     const {sliderMedia, isSliderMediaLoading, sliderMediaError} = useTypeSelector(i => i.sliderMedia)
 
     React.useEffect(() => {
-        fetchTrendingMedia(1, mediaTypes.TV_SERIES)
+        fetchTrendingMediaSlider(1, mediaTypes.TV_SERIES)
         fetchPopularMedia(1, mediaTypes.TV_SERIES)
     },[])
 

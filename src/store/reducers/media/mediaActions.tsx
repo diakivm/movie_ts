@@ -59,6 +59,9 @@ const setTotalPagesAction = (pages: number): setTotalPages  => {
     }
 }
 
+
+//Media Actions
+
 export function fetchPopularMedia(page: number, mediaType: mediaTypes){
     return async (dispatch: Dispatch<movieActions>) => {
         try {
@@ -75,6 +78,71 @@ export function fetchPopularMedia(page: number, mediaType: mediaTypes){
                   default:
                       dispatch(resetMediaAction())
               }
+            dispatch(setTotalPagesAction(response.data.total_pages))
+            dispatch(setPageAction(response.data.page))
+            await Dalay.wait(1)
+        } catch (e){
+            dispatch(setErrorAction((e as Error).toString()))
+        } finally {
+            dispatch(setIsLoadingAction(false))
+        }
+    }
+}
+
+export function fetchTopRatedMedia(page: number, mediaType: mediaTypes){
+    return async (dispatch: Dispatch<movieActions>) => {
+        try {
+            dispatch(resetMediaAction())
+            dispatch(setIsLoadingAction(true))
+            const response = await mediaService.getTopRatedMedia(page, mediaType)
+            switch (mediaType) {
+                case mediaTypes.MOVIE:
+                    dispatch(setMoviesAction(response.data.results))
+                    break;
+                case mediaTypes.TV_SERIES:
+                    dispatch(setTvSeriesAction(response.data.results))
+                    break;
+                default:
+                    dispatch(resetMediaAction())
+            }
+            dispatch(setTotalPagesAction(response.data.total_pages))
+            dispatch(setPageAction(response.data.page))
+            await Dalay.wait(1)
+        } catch (e){
+            dispatch(setErrorAction((e as Error).toString()))
+        } finally {
+            dispatch(setIsLoadingAction(false))
+        }
+    }
+}
+
+//Movie Actions
+
+export function fetchUpcomingMovie(page: number){
+    return async (dispatch: Dispatch<movieActions>) => {
+        try {
+            dispatch(resetMediaAction())
+            dispatch(setIsLoadingAction(true))
+                const response = await mediaService.getUpcomingMovie(page)
+            dispatch(setMoviesAction(response.data.results))
+            dispatch(setTotalPagesAction(response.data.total_pages))
+            dispatch(setPageAction(response.data.page))
+            await Dalay.wait(1)
+        } catch (e){
+            dispatch(setErrorAction((e as Error).toString()))
+        } finally {
+            dispatch(setIsLoadingAction(false))
+        }
+    }
+}
+
+export function fetchNowPlayingMovie(page: number){
+    return async (dispatch: Dispatch<movieActions>) => {
+        try {
+            dispatch(resetMediaAction())
+            dispatch(setIsLoadingAction(true))
+                const response = await mediaService.getNowPlayingMovie(page)
+            dispatch(setMoviesAction(response.data.results))
             dispatch(setTotalPagesAction(response.data.total_pages))
             dispatch(setPageAction(response.data.page))
             await Dalay.wait(1)
