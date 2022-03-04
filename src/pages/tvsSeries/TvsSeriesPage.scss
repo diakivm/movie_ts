@@ -1,0 +1,42 @@
+@import '../../styles/sass/mixins.scss';
+@import '../../styles/sass/style.scss';
+
+.page {
+
+   &__movies {
+   }
+}
+.section {
+
+   &__slider-now-paying {
+   }
+
+   &__media-list {
+   }
+}
+.media-list {
+
+   @media (min-width:$md4+px){
+      display: flex;
+   }
+
+   &__list {
+      flex: 1;
+   }
+
+   &__filters {
+
+      @media (min-width:$md4+px){
+         padding: 50px 0px 0px 0px;
+         @include adaptiv-value("margin-right",50 ,20,0 );
+         @include adaptiv-value("width",200 ,150,0 );
+      }
+
+   }
+
+   &__pagination {
+      margin: 20px 0;
+      display: flex;
+      justify-content: center;
+   }
+}

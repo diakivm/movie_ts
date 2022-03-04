@@ -1,6 +1,6 @@
 import {IMovie} from "../../../models/IMovie";
 import {ITvSeries} from "../../../models/ITvSeries";
-import {movieActionsType} from "../movie/types";
+import {movieActionsType} from "../media/types";
 
 
 export interface searchState {

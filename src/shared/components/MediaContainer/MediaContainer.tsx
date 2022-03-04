@@ -4,10 +4,10 @@ import {IMovie} from "../../../models/IMovie";
 import MediaPreview from "../MediaPrview/MediaPreview";
 import Loaders from "../../../utils/Loaders";
 import {ITvSeries} from "../../../models/ITvSeries";
-import {IMediaType} from "../../../models/IMedia";
+import {IMedia} from "../../../models/IMedia";
 
 interface MediaContainerProps {
-    items: IMediaType[],
+    items: IMedia[],
     title?: string,
     isItemsLoading?: boolean
 }

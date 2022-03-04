@@ -1,10 +1,12 @@
 import {combineReducers} from "redux";
-import {movieReducer} from "./reducers/movie/movieReducer";
+import {mediaReducer} from "./reducers/media/mediaReducer";
 import {searchReducer} from "./reducers/search/searchReducer";
+import {sliderMediaReducer} from "./reducers/sliderMedia/sliderMediaReducer";
 
 export const rootReducers = combineReducers({
-    movie: movieReducer,
-    search: searchReducer
+    media: mediaReducer,
+    search: searchReducer,
+    sliderMedia: sliderMediaReducer,
 })
 
 export type rootState = ReturnType<typeof rootReducers>

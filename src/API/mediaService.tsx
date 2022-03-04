@@ -91,7 +91,7 @@ export default class mediaService {
         return response
     }
 
-    // static async getDiscoverMedia(_page: number, _genres: string, _voteFilter: number, _raitingFilter, _yearFilter, _type='movie') {
+    // static async getDiscoverMedia(_page: number, _genres: string, _voteFilter: number, _raitingFilter, _yearFilter, _type='media') {
     //     const response = await axios.get(`https://api.themoviedb.org/3/discover/${_type}?api_key=${API_KEY}`, {
     //         params: {
     //             page: _page,

@@ -11,10 +11,11 @@ import 'swiper/css/scrollbar';
 import './MoviePreviewSlider.scss'
 import {IMovie} from "../../../models/IMovie";
 import Loaders from "../../../utils/Loaders";
+import {IMedia} from "../../../models/IMedia";
 
 
 interface MediaPreviewSliderProps {
-    items: IMovie[],
+    items: IMedia[],
     isLoading: boolean
 }
 

@@ -36,7 +36,7 @@ const Header: FC = () => {
 
                      <ul className='header__link-items'>
                          <li className='header__link-item'>
-                            <Link to='/movie'>Movies</Link>
+                            <Link to='/movies'>Movies</Link>
                          </li>
                          <li className='header__link-item'>
                             <Link to='/tv-series'>TV series</Link>

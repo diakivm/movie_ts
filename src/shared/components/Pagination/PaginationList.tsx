@@ -1,11 +1,15 @@
-import React from 'react';
-import SomeFunc from '../../../../../movie/src/utils/SomeFunc'
+import React, {FC} from 'react';
 import {Pagination} from 'react-bootstrap'
+import SomeFunc from '../../../utils/SomeFunc';
 
 import './PaginationList.scss'
 
+interface PaginationListProps {
+    pagination: any
+    setPagination: any
+}
 
-export default function PaginationList({pagination, setPagination}) {
+const PaginationList: FC<PaginationListProps> = ({pagination, setPagination}) => {
 
   let leftArray = [1,2,3,4]
   let rightArray = [pagination.totalPages-3, pagination.totalPages-2, pagination.totalPages-1, pagination.totalPages]
@@ -22,14 +26,14 @@ export default function PaginationList({pagination, setPagination}) {
     }
   }
 
-  function changePage(num) {
+  function changePage(num: number) {
     
 
     if( 0 <  pagination.currentPage + num && pagination.totalPages >= pagination.currentPage + num && num != pagination.currentPage)
       setPagination({...pagination, currentPage: pagination.currentPage + num})
   }
 
-  function changePageR(num) {
+  function changePageR(num: number) {
     if( num != pagination.currentPage)
       setPagination({...pagination, currentPage: num})
   }
@@ -97,3 +101,5 @@ export default function PaginationList({pagination, setPagination}) {
  </Pagination>
   )
 }
+
+export default PaginationList

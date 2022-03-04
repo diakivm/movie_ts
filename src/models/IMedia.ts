@@ -36,7 +36,7 @@ export interface IMediaResponse {
 
 // multiinterface
 
-export interface IMediaType extends IMovie, ITvSeries {
+export interface IMedia extends IMovie, ITvSeries {
 
 }
 

@@ -7,11 +7,11 @@ import mediaService from "../../../API/mediaService";
 import MoviePreview from "./typeOfMediaPreview/MoviePreview";
 import {ITvSeries} from "../../../models/ITvSeries";
 import TvSeriesPreview from "./typeOfMediaPreview/TvSeriesPreview";
-import {mediaTypes, IMediaType} from "../../../models/IMedia";
+import {mediaTypes, IMedia} from "../../../models/IMedia";
 
 
 interface mediaPreviewProps {
-    item: IMediaType,
+    item: IMedia,
 }
 
 const MediaPreview: FC<mediaPreviewProps> = ({item}) => {

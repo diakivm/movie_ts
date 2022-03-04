@@ -1,3 +1,4 @@
+import {IMedia, mediaType, mediaTypes} from "../models/IMedia";
 
 export default class Loaders {
 
@@ -24,6 +25,12 @@ export default class Loaders {
       newArray.push(index+1)
 
    return newArray
-}  
+}
+
+    static getArrayOfMediaWithType (array: IMedia[], type: mediaType) {
+      return array.map(item => {
+                 return {...item, type: mediaTypes.MOVIE}
+             })
+    }
 
 }

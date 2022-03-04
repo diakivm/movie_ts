@@ -7,7 +7,7 @@ import './SearchPage.scss'
 import {useParams} from "react-router-dom";
 import {useTypeSelector} from "../../hooks/useTypeSelector";
 import {useAction} from "../../hooks/useAction";
-import {IMediaType} from "../../models/IMedia";
+import {IMedia} from "../../models/IMedia";
 
 type SearchParams = {
     searchQuery: string
@@ -37,7 +37,7 @@ export default function SearchPage() {
                                                             ? 
                                                             <p className="search-page__masegge-no-items">Ваш поиск не дал результатов</p>
                                                             :
-                                                            <MediaContainer items={[...tv_series, ...movies] as IMediaType[]} />
+                                                            <MediaContainer items={[...tv_series, ...movies] as IMedia[]} />
                                     )
              }
           </div>

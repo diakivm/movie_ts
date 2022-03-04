@@ -5,23 +5,23 @@ import {useTypeSelector} from "../../hooks/useTypeSelector";
 import {useAction} from "../../hooks/useAction";
 import MediaContainer from "../../shared/components/MediaContainer/MediaContainer";
 import MediaPreviewSlider from "../../shared/components/Sliders/MediaPreviewSlider";
-import {mediaTypes, IMediaType} from "../../models/IMedia";
+import {mediaTypes, IMedia} from "../../models/IMedia";
 
 const MainPage:FC = () => {
 
-  const {movies, page, error, isLoading} = useTypeSelector(i => i.movie)
-  const {fetchMovies} = useAction()
+  const {media, page, error, isLoading} = useTypeSelector(i => i.media)
+  const {fetchPopularMedia} = useAction()
 
   React.useEffect(() => {
-    fetchMovies(1, mediaTypes.MOVIE)
+    fetchPopularMedia(1, mediaTypes.MOVIE)
   },[])
 
   return(
     <>
-      <MediaPreviewSlider items={movies}
+      <MediaPreviewSlider items={media}
                           isLoading={isLoading}/>
 
-      <MediaContainer items={movies as IMediaType[]}
+      <MediaContainer items={media}
                       title={"Сегодняшние тренды фильмов"}
                       isItemsLoading={isLoading}/>
     </>

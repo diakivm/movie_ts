@@ -9,7 +9,7 @@ import './MediaPage.scss'
 import mediaService from "../../API/mediaService";
 import {IMovie} from "../../models/IMovie";
 import {ITvSeries} from "../../models/ITvSeries";
-import {mediaTypes, IMediaType} from "../../models/IMedia";
+import {mediaTypes, IMedia} from "../../models/IMedia";
 import MoviePage from "./mediaPages/MoviePage";
 import TvSeriesPage from "./mediaPages/TvSeriesPage";
 
@@ -22,7 +22,7 @@ export default function MediaPage() {
 
    const params = useParams<MediaParams>()
 
-   const [media, setMedia] = React.useState<IMediaType>({} as IMediaType)
+   const [media, setMedia] = React.useState<IMedia>({} as IMedia)
    const [fetchMedia, isLoadingMedia, errorMediaValue] = useFetching(async () => {
       const response = await mediaService.getMediaById(Number(params.id), params.type)
       await Dalay.wait(1)
