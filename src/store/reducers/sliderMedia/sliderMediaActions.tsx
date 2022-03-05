@@ -43,6 +43,7 @@ const setErrorAction = (error: string): setMoviesError => {
     }
 }
 
+
 export function fetchTrendingMediaSlider(page: number = 1, mediaType: mediaTypes){
     return async (dispatch: Dispatch<sliderMediaActions>) => {
         try {

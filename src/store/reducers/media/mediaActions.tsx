@@ -1,11 +1,14 @@
 import {Dispatch} from "react";
 import {
-    setMovies,
     movieActions,
     movieActionsType,
+    resetMedia,
+    setMovies,
     setMoviesError,
     setMoviesIsLoading,
-    setMoviesPage, setTotalPages, setTvSeries, resetMedia
+    setMoviesPage,
+    setTotalPages,
+    setTvSeries
 } from "./types";
 import {IMovie} from "../../../models/IMovie";
 import mediaService from "../../../API/mediaService";
@@ -147,6 +150,25 @@ export function fetchDiscoverMedia(page: number,
     }
 }
 
+export function fetchMixedMedia(page: number){
+    return async (dispatch: Dispatch<movieActions>) => {
+        try {
+            dispatch(resetMediaAction())
+            dispatch(setIsLoadingAction(true))
+            const responseTv = await mediaService.getPopularMedia(page, mediaTypes.TV_SERIES)
+            const responseMovie = await mediaService.getPopularMedia(page, mediaTypes.MOVIE)
+            dispatch(setMoviesAction(responseMovie.data.results))
+            dispatch(setTvSeriesAction(responseTv.data.results))
+            dispatch(setTotalPagesAction(1))
+            dispatch(setPageAction(1))
+            await Dalay.wait(1)
+        } catch (e){
+            dispatch(setErrorAction((e as Error).toString()))
+        } finally {
+            dispatch(setIsLoadingAction(false))
+        }
+    }
+}
 
 //Movie Actions
 
@@ -223,3 +245,4 @@ export function fetchOnTheAirTvSeries(page: number){
         }
     }
 }
+
