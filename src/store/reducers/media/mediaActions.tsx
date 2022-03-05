@@ -10,8 +10,9 @@ import {
 import {IMovie} from "../../../models/IMovie";
 import mediaService from "../../../API/mediaService";
 import Dalay from "../../../utils/Dalay";
-import {mediaTypes} from "../../../models/IMedia";
+import {mediaType, mediaTypes} from "../../../models/IMedia";
 import {ITvSeries} from "../../../models/ITvSeries";
+import {IGenre} from "../../../models/IGenre";
 
 
 const setMoviesAction = (movie: IMovie[]): setMovies => {
@@ -20,20 +21,17 @@ const setMoviesAction = (movie: IMovie[]): setMovies => {
         payload: movie
     }
 }
-
 const setTvSeriesAction = (tvSeries: ITvSeries[]): setTvSeries => {
     return {
         type: movieActionsType.SET_TV_SERIES,
         payload: tvSeries
     }
 }
-
 const resetMediaAction = (): resetMedia => {
     return {
         type: movieActionsType.RESET_MEDIA,
     }
 }
-
 const setIsLoadingAction = (isLoading: boolean): setMoviesIsLoading => {
     return {
         type: movieActionsType.SET_IS_LOADING,
@@ -116,6 +114,40 @@ export function fetchTopRatedMedia(page: number, mediaType: mediaTypes){
     }
 }
 
+export function fetchDiscoverMedia(page: number,
+                                   genres: IGenre[],
+                                   voteFilter: number,
+                                   raitingFilter: [number, number],
+                                   yearFilter: [number, number],
+                                   mediaType: mediaType){
+    return async (dispatch: Dispatch<movieActions>) => {
+        try {
+            dispatch(resetMediaAction())
+            dispatch(setIsLoadingAction(true))
+            const genresString = genres.map(item => item.id).join(',')
+            const response = await mediaService.getDiscoverMedia(page, genresString, voteFilter, raitingFilter, yearFilter, mediaType)
+            switch (mediaType) {
+                case mediaTypes.MOVIE:
+                    dispatch(setMoviesAction(response.data.results))
+                    break;
+                case mediaTypes.TV_SERIES:
+                    dispatch(setTvSeriesAction(response.data.results))
+                    break;
+                default:
+                    dispatch(resetMediaAction())
+            }
+            dispatch(setTotalPagesAction(response.data.total_pages))
+            dispatch(setPageAction(response.data.page))
+            await Dalay.wait(1)
+        } catch (e){
+            dispatch(setErrorAction((e as Error).toString()))
+        } finally {
+            dispatch(setIsLoadingAction(false))
+        }
+    }
+}
+
+
 //Movie Actions
 
 export function fetchUpcomingMovie(page: number){
@@ -143,6 +175,44 @@ export function fetchNowPlayingMovie(page: number){
             dispatch(setIsLoadingAction(true))
                 const response = await mediaService.getNowPlayingMovie(page)
             dispatch(setMoviesAction(response.data.results))
+            dispatch(setTotalPagesAction(response.data.total_pages))
+            dispatch(setPageAction(response.data.page))
+            await Dalay.wait(1)
+        } catch (e){
+            dispatch(setErrorAction((e as Error).toString()))
+        } finally {
+            dispatch(setIsLoadingAction(false))
+        }
+    }
+}
+
+//Tv Series Actions
+
+export function fetchAiringTodayTvSeries(page: number){
+    return async (dispatch: Dispatch<movieActions>) => {
+        try {
+            dispatch(resetMediaAction())
+            dispatch(setIsLoadingAction(true))
+            const response = await mediaService.getAiringTodayTV(page)
+            dispatch(setTvSeriesAction(response.data.results))
+            dispatch(setTotalPagesAction(response.data.total_pages))
+            dispatch(setPageAction(response.data.page))
+            await Dalay.wait(1)
+        } catch (e){
+            dispatch(setErrorAction((e as Error).toString()))
+        } finally {
+            dispatch(setIsLoadingAction(false))
+        }
+    }
+}
+
+export function fetchOnTheAirTvSeries(page: number){
+    return async (dispatch: Dispatch<movieActions>) => {
+        try {
+            dispatch(resetMediaAction())
+            dispatch(setIsLoadingAction(true))
+            const response = await mediaService.getOnTheAirTV(page)
+            dispatch(setTvSeriesAction(response.data.results))
             dispatch(setTotalPagesAction(response.data.total_pages))
             dispatch(setPageAction(response.data.page))
             await Dalay.wait(1)

@@ -1,14 +1,22 @@
-import React from 'react';
-import Box from '@mui/material/Box';
-import Slider from '@mui/material/Slider';
+import { Box, Slider } from '@mui/material';
+import React, {FC} from 'react';
+
 
 
 
 const minDistance = 0;
 
-export default function MinimumDistanceSlider({value: any, setValue: any, width = '100%', min=0, max=100}) {
+interface SliderRangeProps {
+  value: any
+  setValue: any
+  width?: string
+  min: number
+  max: number
+}
 
-  const handleChange = (event, newValue, activeThumb) => {
+const SliderRange: FC<SliderRangeProps> = ({value, setValue, width = '100%', min=0, max=100}) => {
+
+  const handleChange = (event: any, newValue: any, activeThumb: any) => {
     if (!Array.isArray(newValue)) {
       return;
     }
@@ -34,3 +42,6 @@ export default function MinimumDistanceSlider({value: any, setValue: any, width 
     </Box>
   );
 }
+
+
+export default SliderRange

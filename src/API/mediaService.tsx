@@ -1,6 +1,7 @@
 import axios from 'axios'
 import {ITrailerInfo} from "../models/ITrailerInfo";
 import {IMediaResponse, mediaType, mediaTypes} from "../models/IMedia";
+import {IGenre} from "../models/IGenre";
 
 const _defaultLanguange = "ru-RU"
 const API_KEY = '61535d35d8f1f0f5cd6bcb40fd8046f6'
@@ -91,21 +92,26 @@ export default class mediaService {
         return response
     }
 
-    // static async getDiscoverMedia(_page: number, _genres: string, _voteFilter: number, _raitingFilter, _yearFilter, _type='media') {
-    //     const response = await axios.get(`https://api.themoviedb.org/3/discover/${_type}?api_key=${API_KEY}`, {
-    //         params: {
-    //             page: _page,
-    //             language: _defaultLanguange,
-    //             with_genres: _genres,
-    //             'vote_count.gte': _voteFilter,
-    //             'vote_average.gte': _raitingFilter[0,0],
-    //             'vote_average.lte': _raitingFilter[0,1],
-    //             'primary_release_date.gte': new Date(_yearFilter[0,0],0,1),
-    //             'primary_release_date.lte': new Date(_yearFilter[0,1],0,1),
-    //         }
-    //     })
-    //     return response
-    // }
+    static async getDiscoverMedia(_page: number,
+                                  _genres: string,
+                                  _voteFilter: number,
+                                  _raitingFilter: [number, number],
+                                  _yearFilter: [number, number],
+                                  _type: mediaType) {
+        const response = await axios.get(`https://api.themoviedb.org/3/discover/${_type}?api_key=${API_KEY}`, {
+            params: {
+                page: _page,
+                language: _defaultLanguange,
+                with_genres: _genres,
+                'vote_count.gte': _voteFilter,
+                'vote_average.gte': _raitingFilter[0],
+                'vote_average.lte': _raitingFilter[1],
+                'primary_release_date.gte': new Date(_yearFilter[0],0,1),
+                'primary_release_date.lte': new Date(_yearFilter[1],0,1),
+            }
+        })
+        return response
+    }
 
     //======================================================================================================================
 

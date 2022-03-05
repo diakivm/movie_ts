@@ -4,61 +4,54 @@ import './MediaFilters.scss'
 import useFetching from "../../../../hooks/useFetching";
 import mediaService from "../../../../API/mediaService";
 import Button from "../../../UI/Button/Button";
+import SliderRange from "../../Sliders/SliderRange";
+import SliderSimple from "../../Sliders/SliderSimple";
+import {IGenre} from "../../../../models/IGenre";
+import {mediaType} from "../../../../models/IMedia";
+import {useAction} from "../../../../hooks/useAction";
+import {typeOfFilterMedia, typesOfFilterMovie} from "../typesOfFilteres";
 
 interface MoreMediaFiltersProps {
-    mediaPagination: any
-    setMediaPagination: any
-    setFilterMedia: any
-    setMedia: any
-    type: any
+    type: mediaType
+    filterTypeMedia: typeOfFilterMedia
+    mediaPagination: {currentPage: number, totalPages: number}
+    setMediaPagination: (item: any) => void
+    typesOfFilterMedia: typeOfFilterMedia[]
 }
 
-const MoreMediaFilters: FC<MoreMediaFiltersProps> = ({mediaPagination, setMediaPagination, setMedia, type, setFilterMedia}) => {
+const MoreMediaFilters: FC<MoreMediaFiltersProps> = ({ type,
+                                                       mediaPagination,
+                                                       setMediaPagination,
+                                                       filterTypeMedia,
+                                                       typesOfFilterMedia,}) => {
 
-    const [selectedGenres, setSelectedGenres] = React.useState([])
+    const [selectedGenres, setSelectedGenres] = React.useState<IGenre[]>([])
     const [yearFilter, setYearFilter] = React.useState<[number, number]>([2000, 2023])
     const [raitingFilter, setRaitingFilter] = React.useState<[number, number]>([0, 10])
     const [voteFilter, setVoteFilter] = React.useState<number>(0)
 
+    const {fetchDiscoverMedia} = useAction()
 
-    const [genres, setGenres] = React.useState([])
+    const [genres, setGenres] = React.useState<IGenre[]>([])
     const [fetchGenres, isGenresLoading, errorGenresValue] = useFetching( async() => {
        const response = await mediaService.getMediaGenres(type)
        setGenres(response.data.genres)
     })
 
-    const [fetchFilteredMedia, isFilteredMediaLoading, errorFilteredMediaValue] = useFetching( async() => {
-       const genres = selectedGenres.map(item => item.id).join(',')
-       const response = await mediaService.getDiscoverMedia(mediaPagination.currentPage, genres, voteFilter, raitingFilter, yearFilter, type)
-
-       setMediaPagination({...mediaPagination, totalPages: response.data.total_pages})
-       setMedia(response.data.results)
-    })
-
-
 
     React.useEffect(() => {
-      fetchGenres()
-    },[type])
+        fetchGenres()
+    },[])
 
     React.useEffect(() => {
-      fetchFilteredMedia()
+        if(filterTypeMedia === typesOfFilterMedia[0])
+            fetchDiscoverMedia(mediaPagination.currentPage, selectedGenres, voteFilter, raitingFilter, yearFilter, type)
+
     },[mediaPagination.currentPage])
 
-
   function executeFiltering(){
-
-    if(mediaPagination.currentPage === 1){
-        fetchFilteredMedia()
-        } else {
-          setMediaPagination({...mediaPagination, currentPage: 1})
-        }
-
-    if(selectedGenres.length !== 0 || yearFilter !== [2000, 2023] || raitingFilter !== [0, 10] || voteFilter !== 0){
-        setFilterMedia({name: "Результат...", type: "filtered"})
-        } else {
-          setFilterMedia({name: "Популярные", type: "popular"})
-        }
+        setMediaPagination({...mediaPagination, currentPage: 1})
+        fetchDiscoverMedia(mediaPagination.currentPage, selectedGenres, voteFilter, raitingFilter, yearFilter, type)
   }
 
   function resetFiltering(){
@@ -66,11 +59,9 @@ const MoreMediaFilters: FC<MoreMediaFiltersProps> = ({mediaPagination, setMediaP
      setRaitingFilter([0, 10])
      setVoteFilter(0)
      setSelectedGenres([])
-
-     setFilterMedia({name: "Популярные", type: "popular"})
   }
 
-  function onToggleGenre(genre: any){
+  function onToggleGenre(genre: IGenre){
 
       if(selectedGenres.find(item => item.id === genre.id)){
          setSelectedGenres(selectedGenres.filter(item => item.id !== genre.id))
@@ -84,7 +75,7 @@ const MoreMediaFilters: FC<MoreMediaFiltersProps> = ({mediaPagination, setMediaP
       <div className="select-section__filtres filtres">
          <div className="filtres__genre-items">
             <Accordion defaultActiveKey="0">
-                <Accordion.Item eventKey="0">
+                <Accordion.Item eventKey="1">
                   <Accordion.Header>Жанри</Accordion.Header>
                    <Accordion.Body>               
                       {
@@ -101,14 +92,14 @@ const MoreMediaFilters: FC<MoreMediaFiltersProps> = ({mediaPagination, setMediaP
             </Accordion>
          </div>
          <div className="filtres__year">
-              <div className="filtres__year-value">{`Год от ${yearFilter[0,0]} до ${yearFilter[0,1]}`}</div>
+              <div className="filtres__year-value">{`Год от ${yearFilter[0]} до ${yearFilter[1]}`}</div>
               <SliderRange value={yearFilter}
                             setValue={setYearFilter}
                             min={1950}
                             max={2023}/>
          </div>
          <div className="filtres__raiting">
-              <div className="filtres__raiting-value">{`Рейтинг от ${raitingFilter[0,0]} до ${raitingFilter[0,1]}`}</div>
+              <div className="filtres__raiting-value">{`Рейтинг от ${raitingFilter[0]} до ${raitingFilter[1]}`}</div>
               <SliderRange  value={raitingFilter}
                             setValue={setRaitingFilter}
                             min={0}
