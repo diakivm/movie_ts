@@ -1,8 +1,8 @@
-import React, {FC} from 'react';
+import React, {FC} from 'react'
 import './styles/sass/style.scss'
-import Header from "./pages/header/Header";
-import Footer from "./pages/footer/Footer";
-import AppRoutes from "./router/AppRoutes";
+import Header from "./pages/header/Header"
+import Footer from "./pages/footer/Footer"
+import AppRoutes from "./router/AppRoutes"
 
 const App: FC = () => {
   return (
