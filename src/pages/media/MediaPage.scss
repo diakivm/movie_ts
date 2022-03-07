@@ -25,11 +25,18 @@
       background-color:#000;
    }
 
+   &__trailer-btn{
+      width: 100%;
+      margin: 10px 0;
+   }
+
+   &__image-wrap{
+   }
+
    &__image {
       height: 380px;
       min-width: 250px;
       max-width: 300px;
-      margin: 0px 20px 20px 0px;
    }
 
    &__title {
@@ -47,7 +54,7 @@
    }
 
    &__more-about {
-      margin: 0px 0px 20px 0px;
+      margin: 0px 0px 20px 20px;
    }
 
 	&__more-about-section {

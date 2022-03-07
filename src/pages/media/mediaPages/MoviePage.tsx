@@ -4,6 +4,9 @@ import SomeFunc from '../../../utils/SomeFunc';
 import TailSpinLoader from "../../../shared/components/Loaders/TailSpinLoader";
 import {IMovie} from "../../../models/IMovie";
 import mediaService from "../../../API/mediaService";
+import Button from "../../../shared/UI/Button/Button";
+import MediaTrailerInfo from "../../../shared/components/MediaTrailerInfo/MediaTrailerInfo";
+import {IMedia, mediaTypes} from "../../../models/IMedia";
 
 interface moviePageProps {
     movie: IMovie
@@ -13,6 +16,12 @@ interface moviePageProps {
 const MoviePage: FC<moviePageProps> = ({movie, isLoadingMovie}) => {
 
     const separator = ", "
+
+    const [modalShow, setModalShow] = React.useState(false)
+
+    function onClickVideo() {
+        setModalShow(true)
+    }
 
     return (
         <div className="media">
@@ -27,8 +36,17 @@ const MoviePage: FC<moviePageProps> = ({movie, isLoadingMovie}) => {
                             <div style={{padding: "20px"}}>
                                 <h3 className="media__title">{movie?.title}</h3>
                                 <div className='media__info-wrap'>
-                                    <div className="media__image _ibg">
-                                        <img src={mediaService.URL_IMAGE+movie?.poster_path} alt="poster"/>
+                                    <div className="media__image-wrap">
+                                         <div className="media__image _ibg">
+                                             <img src={mediaService.URL_IMAGE+movie?.poster_path} alt="poster"/>
+                                         </div>
+                                         <Button onClick={onClickVideo}
+                                                 className={"media__trailer-btn"}>Трейлер</Button>
+                                        {
+                                            modalShow && <MediaTrailerInfo item={{...movie, type: mediaTypes.MOVIE} as IMedia}
+                                                                           modalShow={modalShow}
+                                                                           setModalShow={setModalShow}/>
+                                        }
                                     </div>
                                     <div className="media__more-about">
                                         <div className="media__more-about-section">

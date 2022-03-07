@@ -150,15 +150,21 @@ export function fetchDiscoverMedia(page: number,
     }
 }
 
-export function fetchMixedMedia(page: number){
+export function fetchPopularMediaWithoutReset(page: number, mediaType: mediaType){
     return async (dispatch: Dispatch<movieActions>) => {
         try {
-            dispatch(resetMediaAction())
             dispatch(setIsLoadingAction(true))
-            const responseTv = await mediaService.getPopularMedia(page, mediaTypes.TV_SERIES)
-            const responseMovie = await mediaService.getPopularMedia(page, mediaTypes.MOVIE)
-            dispatch(setMoviesAction(responseMovie.data.results))
-            dispatch(setTvSeriesAction(responseTv.data.results))
+            const response = await mediaService.getPopularMedia(page, mediaType)
+            switch (mediaType) {
+                case mediaTypes.MOVIE:
+                    dispatch(setMoviesAction(response.data.results))
+                    break;
+                case mediaTypes.TV_SERIES:
+                    dispatch(setTvSeriesAction(response.data.results))
+                    break;
+                default:
+                    dispatch(resetMediaAction())
+            }
             dispatch(setTotalPagesAction(1))
             dispatch(setPageAction(1))
             await Dalay.wait(1)
@@ -246,3 +252,12 @@ export function fetchOnTheAirTvSeries(page: number){
     }
 }
 
+// Other Actions
+
+export function resetAllMedia() {
+    try {
+        return resetMediaAction()
+    }catch (e){
+        return setErrorAction((e as Error).toString())
+    }
+}

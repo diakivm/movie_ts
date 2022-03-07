@@ -8,8 +8,9 @@ import {useAction} from "../../../../hooks/useAction";
 import {ITvSeries} from "../../../../models/ITvSeries";
 import {ITrailerInfo} from "../../../../models/ITrailerInfo";
 import useFetching from "../../../../hooks/useFetching";
-import {mediaTypes} from "../../../../models/IMedia";
+import {IMedia, mediaTypes} from "../../../../models/IMedia";
 import Dalay from "../../../../utils/Dalay";
+import MediaTrailerInfo from "../../MediaTrailerInfo/MediaTrailerInfo";
 
 
 interface TvSeriesPreviewProps {
@@ -18,20 +19,10 @@ interface TvSeriesPreviewProps {
 
 const TvSeriesPreview: FC<TvSeriesPreviewProps> = ({item}) => {
 
-    const poster_path: string = mediaService.URL_IMAGE+item?.poster_path
-
     const [modalShow, setModalShow] = React.useState(false)
-
-    const [videoKeys, setVideoKeys] = React.useState<ITrailerInfo[]>([])
-    const [fetchVideoKeys, isLoading, errorVideovalue] = useFetching( async () => {
-        const response = await mediaService.getMediaTrailer(item.id, mediaTypes.TV_SERIES)
-        await Dalay.wait(1)
-        setVideoKeys(response.data.results)
-    })
 
     function onClickVideo() {
         setModalShow(true)
-        fetchVideoKeys()
     }
 
     const navigate = useNavigate()
@@ -42,27 +33,13 @@ const TvSeriesPreview: FC<TvSeriesPreviewProps> = ({item}) => {
     return (
         <div className='preview__container'>
             <div className="preview__img _ibg">
-                <img src={poster_path} alt="img"/>
+                <img src={mediaService.URL_IMAGE+item?.poster_path} alt="img"/>
                 <div className="_icon-play img-play" onClick={openMediaPage}></div>
                 <div className="_icon-dots img-more" onClick={onClickVideo}></div>
             </div>
-            <VideoModal show={modalShow}
-                        onHide={() => setModalShow(false)}
-            >
-                {
-                    isLoading ?
-                        <TailSpinLoader width={80} height={80}/>
-                        :
-                        <>
-                            <iframe className='trailer'
-                                    src={`https://www.youtube.com/embed/${videoKeys[0]?.key}`}
-                                    allowFullScreen>
-                            </iframe>
-                            <hr />
-                            <p>{item?.overview}</p>
-                        </>
-                }
-            </VideoModal>
+            <MediaTrailerInfo item={item as IMedia}
+                              modalShow={modalShow}
+                              setModalShow={setModalShow}/>
             <div className="preview__info">
                 <h4 className="preview__title" onClick={openMediaPage}>{item.name}</h4>
                 <div className="preview__about">
