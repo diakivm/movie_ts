@@ -18,7 +18,7 @@ export enum routeNames {
     TV_SERIES = '/tv-series',
     MOVIES = '/movies',
     MEDIA = '/media/:type/:id',
-    MAIN = '/'
+    MAIN = 'movie_ts/'
 }
 
 export const publicRoutes: IRoute[] = [
