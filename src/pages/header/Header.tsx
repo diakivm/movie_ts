@@ -4,6 +4,7 @@ import {Link, useNavigate} from 'react-router-dom'
 import './Header.scss'
 import {useTypeSelector} from "../../hooks/useTypeSelector";
 import {useAction} from "../../hooks/useAction";
+import {routeNames} from "../../router/routes";
 
 const Header: FC = () => {
 
@@ -28,7 +29,7 @@ const Header: FC = () => {
    return (
          <Navbar className='header' bg="warning" expand="lg">
             <Container fluid>
-               <Link to="/">
+               <Link to={routeNames.MAIN}>
                   <h1 className='header__logo' >movie.</h1>
                </Link>
                <Navbar.Toggle aria-controls="navbarScroll" />
@@ -36,10 +37,10 @@ const Header: FC = () => {
 
                      <ul className='header__link-items'>
                          <li className='header__link-item'>
-                            <Link to='/movies'>Movies</Link>
+                            <Link to={routeNames.MOVIES}>Movies</Link>
                          </li>
                          <li className='header__link-item'>
-                            <Link to='/tv-series'>TV series</Link>
+                            <Link to={routeNames.TV_SERIES}>TV series</Link>
                          </li>
                      </ul>
                      <div style={{flex:'1'}}></div>
