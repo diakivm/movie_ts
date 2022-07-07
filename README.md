@@ -5,7 +5,7 @@ Open project [https://github.com/diakivm/movie_ts.git](https://github.com/diakiv
 Open gh pages [https://diakivm.github.io/movie_ts/](https://diakivm.github.io/movie_ts/).
 
 # Video on Loom
-Open video [https://www.loom.com/share/4f717313a0b04e38a0dc86f840e54f1b](https://www.loom.com/share/4f717313a0b04e38a0dc86f840e54f1b).
+Open video [https://www.loom.com/share/c6f5ef69ff2044269cbc7d45076ba00b](https://www.loom.com/share/c6f5ef69ff2044269cbc7d45076ba00b).
 
 
 # Getting Started with Create React App
